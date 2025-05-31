@@ -176,6 +176,7 @@ label {
 }
 
 
+
 .tab {
   flex: 1 1 auto; 
   text-align: center;
@@ -193,13 +194,16 @@ label {
 }
 
 .tab-indicator {
-    position: absolute;
-    bottom: 0;
-    height: 4px;
-    background-color: #3cae3c;
-    border-radius: 2px;
-    transition: all 0.3s ease;
+  position: absolute;
+  bottom: 0;
+  height: 4px;
+  background-color: #3cae3c;
+  border-radius: 2px;
+  transition: all 0.3s ease;
+  left: 0;
+  width: 0;
 }
+
 .full-bg {
     width: 100%;
     background-color: #191919;
