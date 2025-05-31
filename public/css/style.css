@@ -268,7 +268,7 @@ label {
 /* === RESPONSIVE === */
 @media (max-width: 768px) {
     .tab {
-        font-size: 1.2rem;      /* 👈 taille plus petite sur mobile */
+        font-size: 1.0rem;      /* 👈 taille plus petite sur mobile */
     }
 }
 @media (max-width: 768px) {
