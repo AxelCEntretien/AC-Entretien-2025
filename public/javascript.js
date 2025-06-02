@@ -257,3 +257,42 @@ document.getElementById('zipcode').addEventListener('input', async function () {
         citySelect.innerHTML = '<option value="">-- Veuillez entrer un code postal --</option>';
     }
 });
+function openModal(id) {
+    document.getElementById(id).classList.add('show');
+
+    if (id === 'modal-login') {
+        const loginContent = document.getElementById('login-modal-content');
+
+        if (!loginContent.innerHTML.trim()) {
+            loginContent.innerHTML = `
+                <span class="close-btn" onclick="closeModal('modal-login')">&times;</span>
+                <h2>Connexion</h2>
+                <form id="login-form">
+                    <label for="login-email">E-mail</label>
+                    <input type="email" name="email" id="login-email" required autocomplete="off">
+
+                    <label for="login-password">Mot de passe</label>
+                    <input type="password" name="password" id="login-password" required autocomplete="off">
+
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 20px;">
+                        <span style="color: #191919; cursor: pointer;" onclick="switchToRegister()"><b><h3>Pas encore inscrit?</h3></b></span>
+                        <button type="submit" class="header-btn">Se connecter</button>
+                    </div>
+                </form>
+                <div id="login-errors" style="color: red; margin-top: 10px;"></div>
+            `;
+
+            // Réattacher l'écouteur après injection
+            document.getElementById('login-form').addEventListener('submit', handleLoginSubmit);
+        }
+    }
+}
+
+function closeModal(id) {
+    document.getElementById(id).classList.remove('show');
+
+    if (id === 'modal-login') {
+        const loginContent = document.getElementById('login-modal-content');
+        loginContent.innerHTML = ''; // Nettoie le DOM pour éviter le clavier mobile
+    }
+}
