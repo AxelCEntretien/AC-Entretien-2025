@@ -1,11 +1,5 @@
 
-        function openModal(id) {
-            document.getElementById(id).classList.add('show');
-        }
-
-        function closeModal(id) {
-            document.getElementById(id).classList.remove('show');
-        }
+        
 
         async function logout() {
             await fetch('/logout');
@@ -135,7 +129,48 @@ window.addEventListener('DOMContentLoaded', async () => {
     indicator.style.left = `${el.offsetLeft}px`;
 }
 
-window.addEventListener('DOMContentLoaded', () => {
+window.addEventListener('DOMContentLoaded', async () => {
+    const res = await fetch('/check-auth');
+    const data = await res.json();
+
+    if (data.connected) {
+        const connexionBtn = document.getElementById('connexion-button');
+        const inscriptionBtn = document.querySelector('.header-btn2');
+
+        connexionBtn.textContent = 'Mon Compte';
+        connexionBtn.setAttribute('onclick', "switchTab(this, 'moncompte')");
+        connexionBtn.classList.add('tab');
+
+        if (inscriptionBtn) inscriptionBtn.style.display = 'none';
+
+        // ✅ Injecter le prénom
+        const monCompteContainer = document.getElementById('slide-moncompte');
+        const nameElement = monCompteContainer.querySelector('.user-firstname');
+        if (nameElement && data.firstname) {
+            nameElement.textContent = data.firstname;
+        }
+
+        // ✅ Injecter les autres infos
+        const userInfoContainer = document.querySelector('.user-info');
+        if (userInfoContainer) {
+            const infos = `
+                <b>Email :</b> ${data.email}<br>
+                <b>Adresse :</b> ${data.number || ''} ${data.street || ''}, ${data.zipcode || ''} ${data.city || ''}
+            `;
+            userInfoContainer.innerHTML = infos;
+        }
+
+    } else {
+        const connexionBtn = document.getElementById('connexion-button');
+        connexionBtn.textContent = 'Connexion';
+        connexionBtn.setAttribute('onclick', "openModal('modal-login')");
+        connexionBtn.classList.add('tab');
+
+        const inscriptionBtn = document.querySelector('.header-btn2');
+        if (inscriptionBtn) inscriptionBtn.style.display = 'block';
+    }
+
+    // ✅ Ajout pour initialiser la tab-indicator correctement
     const active = document.querySelector('.tab.active');
     const indicator = document.querySelector('.tab-indicator');
     if (active && indicator) {
@@ -143,6 +178,8 @@ window.addEventListener('DOMContentLoaded', () => {
         indicator.style.left = `${active.offsetLeft}px`;
     }
 });
+
+
 function switchToRegister() {
     closeModal('modal-login');
     openModal('modal-register');
@@ -258,70 +295,10 @@ document.getElementById('zipcode').addEventListener('input', async function () {
     }
 });
 function openModal(id) {
-    document.getElementById(id).classList.add('show');
-
-    if (id === 'modal-login') {
-        const loginContent = document.getElementById('login-modal-content');
-
-        if (!loginContent.innerHTML.trim()) {
-            loginContent.innerHTML = `
-                <span class="close-btn" onclick="closeModal('modal-login')">&times;</span>
-                <h2>Connexion</h2>
-                <form id="login-form">
-                    <label for="login-email">E-mail</label>
-                    <input type="email" name="email" id="login-email" required autocomplete="off">
-
-                    <label for="login-password">Mot de passe</label>
-                    <input type="password" name="password" id="login-password" required autocomplete="off">
-
-                    <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 20px;">
-                        <span style="color: #191919; cursor: pointer;" onclick="switchToRegister()"><b><h3>Pas encore inscrit?</h3></b></span>
-                        <button type="submit" class="header-btn">Se connecter</button>
-                    </div>
-                </form>
-                <div id="login-errors" style="color: red; margin-top: 10px;"></div>
-            `;
-
-            // Réattacher l'écouteur après injection
-            document.getElementById('login-form').addEventListener('submit', handleLoginSubmit);
-        }
-    }
+  document.getElementById(id).classList.add('show');
 }
 
 function closeModal(id) {
-    document.getElementById(id).classList.remove('show');
-
-    if (id === 'modal-login') {
-        const loginContent = document.getElementById('login-modal-content');
-        loginContent.innerHTML = ''; // Nettoie le DOM pour éviter le clavier mobile
-    }
-}
-
-async function handleLoginSubmit(e) {
-    e.preventDefault();
-
-    const email = document.getElementById('login-email').value.trim();
-    const password = document.getElementById('login-password').value;
-    const errors = [];
-    const errorBox = document.getElementById('login-errors');
-    errorBox.innerHTML = '';
-
-    if (!email || !/^\S+@\S+\.\S+$/.test(email)) errors.push("Email invalide");
-    if (!password) errors.push("Mot de passe requis");
-
-    if (errors.length > 0) {
-        errorBox.innerHTML = errors.map(e => `<div>${e}</div>`).join('');
-        return;
-    }
-
-    const res = await fetch('/login', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, password })
-    });
-
-    const msg = await res.text();
-    if (res.status === 200) window.location.reload();
-    else errorBox.innerHTML = `<div>${msg}</div>`;
+  document.getElementById(id).classList.remove('show');
 }
 
