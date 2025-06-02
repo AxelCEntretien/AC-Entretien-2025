@@ -296,3 +296,32 @@ function closeModal(id) {
         loginContent.innerHTML = ''; // Nettoie le DOM pour éviter le clavier mobile
     }
 }
+
+async function handleLoginSubmit(e) {
+    e.preventDefault();
+
+    const email = document.getElementById('login-email').value.trim();
+    const password = document.getElementById('login-password').value;
+    const errors = [];
+    const errorBox = document.getElementById('login-errors');
+    errorBox.innerHTML = '';
+
+    if (!email || !/^\S+@\S+\.\S+$/.test(email)) errors.push("Email invalide");
+    if (!password) errors.push("Mot de passe requis");
+
+    if (errors.length > 0) {
+        errorBox.innerHTML = errors.map(e => `<div>${e}</div>`).join('');
+        return;
+    }
+
+    const res = await fetch('/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, password })
+    });
+
+    const msg = await res.text();
+    if (res.status === 200) window.location.reload();
+    else errorBox.innerHTML = `<div>${msg}</div>`;
+}
+
