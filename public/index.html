@@ -23,7 +23,8 @@
 <div class="tab-bar">
     <div class="tab active" onclick="switchTab(this, 'prestations')">Prestations</div>
     <div class="tab" onclick="switchTab(this, 'contact')">Contact</div>
-   <div class="tab" id="connexion-button">Connexion</div>
+   <div class="tab" id="connexion-button" onclick="openModal('modal-login')">Connexion</div>
+
 
 
 
@@ -95,12 +96,30 @@
 
     <br>
      <center>© AC Entretien - 2025</center>
+    
     <!-- MODALE CONNEXION -->
-    <div class="modal-overlay" id="modal-login">
-        <div class="modal-content">
-          
-        </div>
-    </div>
+<div class="modal-overlay" id="modal-login">
+  <div class="modal-content">
+    <span class="close-btn" onclick="closeModal('modal-login')">&times;</span>
+    <h2>Connexion</h2>
+    <form id="login-form">
+      <label for="login-email">E-mail</label>
+      <input type="email" name="email" id="login-email" autocomplete="off" required>
+
+      <label for="login-password">Mot de passe</label>
+      <input type="password" name="password" id="login-password" autocomplete="off" required>
+
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 20px;">
+        <span style="color: #191919; cursor: pointer;" onclick="switchToRegister()"><b><h3>Pas encore inscrit?</h3></b></span>
+        <button type="submit" class="header-btn">Se connecter</button>
+      </div>
+    </form>
+    <div id="login-errors" style="color: red; margin-top: 10px;"></div>
+  </div>
+</div>
+
+
+
 
     <!-- MODALE INSCRIPTION -->
     <div class="modal-overlay" id="modal-register">
