@@ -25,7 +25,16 @@ app.use(session({
 
 // ✅ Route inscription
 app.post('/register', async (req, res) => {
-    const { firstname, lastname, email, password } = req.body;
+    const {
+        firstname,
+        lastname,
+        email,
+        password,
+        street,
+        number,
+        zipcode,
+        city
+    } = req.body;
 
     try {
         const existingUser = await User.findOne({ email });
@@ -34,16 +43,33 @@ app.post('/register', async (req, res) => {
         }
 
         const hashedPassword = await bcrypt.hash(password, 10);
-        const newUser = new User({ firstname, lastname, email, password: hashedPassword });
+        const newUser = new User({
+            firstname,
+            lastname,
+            email,
+            password: hashedPassword,
+            street,
+            number,
+            zipcode,
+            city
+        });
+
         await newUser.save();
 
-        req.session.userId = newUser._id; // auto-connexion après inscription
+        // ✅ Enregistrement de l'utilisateur dans la session
+        req.session.user = {
+            _id: newUser._id,
+            firstname: newUser.firstname
+        };
+
         res.status(200).send('Inscription réussie');
     } catch (err) {
         console.error(err);
         res.status(500).send("Erreur serveur");
     }
 });
+
+
 
 // ✅ Route connexion
 app.post('/login', async (req, res) => {
@@ -55,7 +81,17 @@ app.post('/login', async (req, res) => {
         const valid = await bcrypt.compare(password, user.password);
         if (!valid) return res.status(401).send('Mot de passe incorrect');
 
-        req.session.userId = user._id;
+        // ✅ Enregistrement du prénom dans la session
+        req.session.user = {
+            _id: user._id,
+            firstname: user.firstname,
+            email: user.email,
+            street: user.street,
+            number: user.number,
+            zipcode: user.zipcode,
+            city: user.city
+        };
+
         res.status(200).send('Connexion réussie');
     } catch (err) {
         console.error(err);
@@ -63,13 +99,29 @@ app.post('/login', async (req, res) => {
     }
 });
 
+
 app.get('/check-auth', (req, res) => {
-    if (req.session.userId) {
-        res.json({ connected: true });
+    if (req.session.user) {
+        const user = req.session.user; // ✅ on récupère l'objet utilisateur depuis la session
+
+        res.json({
+            connected: true,
+            firstname: user.firstname,
+            email: user.email,
+            street: user.street,
+            number: user.number,
+            zipcode: user.zipcode,
+            city: user.city
+        });
     } else {
         res.json({ connected: false });
     }
 });
+
+
+
+
+
 app.get('/logout', (req, res) => {
     req.session.destroy(() => {
         res.redirect('/');
