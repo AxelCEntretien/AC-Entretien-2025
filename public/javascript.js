@@ -20,6 +20,11 @@
             const email = this.email.value.trim();
             const password = this.password.value;
             const confirmPassword = this.confirmPassword.value;
+            const street = this.street.value.trim();
+            const number = this.number.value.trim();
+            const zipcode = this.zipcode.value.trim();
+            const city = this.city.value.trim();    
+
             const errors = [];
 
             const errorContainer = document.getElementById('register-errors');
@@ -39,7 +44,8 @@
             const res = await fetch('/register', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ firstname, lastname, email, password })
+                body: JSON.stringify({ firstname, lastname, email, password, street, number, zipcode, city })
+
             });
 
             const message = await res.text();
@@ -75,32 +81,50 @@
             else errorBox.innerHTML = `<div>${msg}</div>`;
         });
 
-        window.addEventListener('DOMContentLoaded', async () => {
-            const res = await fetch('/check-auth');
-            const data = await res.json();
+window.addEventListener('DOMContentLoaded', async () => {
+    const res = await fetch('/check-auth');
+    const data = await res.json();
 
-            const authButtons = document.getElementById('auth-buttons');
-            const accountButton = document.getElementById('account-button');
+    if (data.connected) {
+        const connexionBtn = document.getElementById('connexion-button');
+        const inscriptionBtn = document.querySelector('.header-btn2');
 
-            if (data.connected) {
-    const connexionBtn = document.getElementById('connexion-button');
-    const inscriptionBtn = document.querySelector('.header-btn2');
+        connexionBtn.textContent = 'Mon Compte';
+        connexionBtn.setAttribute('onclick', "switchTab(this, 'moncompte')");
+        connexionBtn.classList.add('tab');
 
-    connexionBtn.textContent = 'Mon Compte';
-    connexionBtn.onclick = () => window.location.href = '/account';
+        if (inscriptionBtn) inscriptionBtn.style.display = 'none';
 
-    if (inscriptionBtn) inscriptionBtn.style.display = 'none';
-} else {
-    const connexionBtn = document.getElementById('connexion-button');
-    connexionBtn.textContent = 'Connexion';
-    connexionBtn.onclick = () => openModal('modal-login');
+        // ✅ Injecter le prénom
+        const monCompteContainer = document.getElementById('slide-moncompte');
+        const nameElement = monCompteContainer.querySelector('.user-firstname');
+        console.log('Prénom reçu :', data.firstname); // DEBUG
+        if (nameElement && data.firstname) {
+            nameElement.textContent = data.firstname;
+        }
 
-    const inscriptionBtn = document.querySelector('.header-btn2');
-    if (inscriptionBtn) inscriptionBtn.style.display = 'block';
-}
+        // ✅ Injecter les autres infos
+        const userInfoContainer = document.querySelector('.user-info');
+        if (userInfoContainer) {
+            const infos = `
+                <b>Email :</b> ${data.email}<br>
+                <b>Adresse :</b> ${data.number || ''} ${data.street || ''}, ${data.zipcode || ''} ${data.city || ''}
+            `;
+            userInfoContainer.innerHTML = infos;
+        }
+
+    } else {
+        const connexionBtn = document.getElementById('connexion-button');
+        connexionBtn.textContent = 'Connexion';
+        connexionBtn.setAttribute('onclick', "openModal('modal-login')");
+        connexionBtn.classList.add('tab');
+
+        const inscriptionBtn = document.querySelector('.header-btn2');
+        if (inscriptionBtn) inscriptionBtn.style.display = 'block';
+    }
+});
 
 
-        });
 
         function switchTab(el, tabName) {
     document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
@@ -130,33 +154,106 @@ function switchToLogin() {
 }
 
 function switchTab(el, tabName) {
+    // Onglets actifs
     document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
     el.classList.add('active');
 
+    // Déplacement de la barre verte
     const indicator = document.querySelector('.tab-indicator');
     indicator.style.width = `${el.offsetWidth}px`;
     indicator.style.left = `${el.offsetLeft}px`;
 
+    // Slides à gérer
     const slides = {
         prestations: document.getElementById('slide-prestations'),
-        contact: document.getElementById('slide-contact')
+        contact: document.getElementById('slide-contact'),
+        moncompte: document.getElementById('slide-moncompte')
     };
 
-    // Hide all first
+    // Masquer tous les slides
     for (const key in slides) {
         slides[key].classList.remove('active', 'exit-left', 'exit-right');
     }
 
-    // Set animation direction
-    if (tabName === 'prestations') {
-        slides.contact.classList.add('exit-right');
-        setTimeout(() => {
-            slides.prestations.classList.add('active');
-        }, 20);
-    } else if (tabName === 'contact') {
-        slides.prestations.classList.add('exit-left');
-        setTimeout(() => {
-            slides.contact.classList.add('active');
-        }, 20);
+    // Appliquer l'effet de transition (carrousel)
+    for (const key in slides) {
+        if (key !== tabName) {
+            const currentIndex = Object.keys(slides).indexOf(key);
+            const newIndex = Object.keys(slides).indexOf(tabName);
+
+            if (currentIndex < newIndex) {
+                slides[key].classList.add('exit-left');
+            } else {
+                slides[key].classList.add('exit-right');
+            }
+        }
     }
+
+    // Affichage avec léger décalage
+    setTimeout(() => {
+        if (slides[tabName]) {
+            slides[tabName].classList.add('active');
+        }
+    }, 20);
 }
+
+document.getElementById('zipcode').addEventListener('input', async function () {
+    const zip = this.value.trim();
+
+    if (zip.length === 5 && /^\d+$/.test(zip)) {
+        try {
+            const res = await fetch(`https://geo.api.gouv.fr/communes?codePostal=${zip}&fields=nom&format=json`);
+            const data = await res.json();
+
+            if (data.length > 0) {
+                document.getElementById('city').value = data[0].nom;
+            } else {
+                document.getElementById('city').value = '';
+            }
+        } catch (e) {
+            console.error("Erreur API code postal :", e);
+            document.getElementById('city').value = '';
+        }
+    } else {
+        document.getElementById('city').value = '';
+    }
+});
+// 👁️ Afficher/Masquer le mot de passe
+function togglePassword(id) {
+    const field = document.getElementById(id);
+    field.type = field.type === 'password' ? 'text' : 'password';
+}
+
+// 🎯 Code postal → villes API
+document.getElementById('zipcode').addEventListener('input', async function () {
+    const zip = this.value.trim();
+    const citySelect = document.getElementById('city');
+
+    if (zip.length === 5 && /^\d+$/.test(zip)) {
+        try {
+            const res = await fetch(`https://geo.api.gouv.fr/communes?codePostal=${zip}&fields=nom&format=json`);
+            const data = await res.json();
+
+            citySelect.innerHTML = ''; // Réinitialise la liste
+
+            if (data.length > 0) {
+                data.forEach(commune => {
+                    const option = document.createElement('option');
+                    option.value = commune.nom;
+                    option.textContent = commune.nom;
+                    citySelect.appendChild(option);
+                });
+            } else {
+                const option = document.createElement('option');
+                option.value = '';
+                option.textContent = 'Aucune commune trouvée';
+                citySelect.appendChild(option);
+            }
+        } catch (e) {
+            console.error("Erreur API code postal :", e);
+            citySelect.innerHTML = '<option value="">Erreur lors du chargement</option>';
+        }
+    } else {
+        citySelect.innerHTML = '<option value="">-- Veuillez entrer un code postal --</option>';
+    }
+});
