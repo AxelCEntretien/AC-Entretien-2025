@@ -12,17 +12,10 @@
     
     <div class="container">
         <!-- En-tête -->
-        <div class="header-bar" style="display: flex; justify-content: space-between; align-items: center; padding: 20px 30px;">
-            <img src="images/ACELogo.png" alt="Logo ACENTRETIEN" class="logo">
+       <div class="header-bar" style="display: flex; justify-content: center; align-items: center; padding: 20px 30px;">
+    <img src="images/ACELogo.png" alt="Logo ACENTRETIEN" class="logo">
+</div>
 
-            <div style="display: flex; flex-direction: column; gap: 10px;">
-                
-
-                <p onclick="logout()" style="color: #191919; cursor: pointer; font-size: 0.95rem; margin: 0;">
-    Se déconnecter
-</p>
-            </div>
-        </div>
 
         <!-- ONGLET MENU -->
 
@@ -40,34 +33,77 @@
       <!-- Contenu principal -->
 <div class="slide-container">
   <div class="slide-content active" id="slide-prestations">
-    <div class="full-bg">
-      <div class="container">
-            <h1>Nos Prestations</h1>
-            <p>ACENTRETIEN intervient pour l’entretien de vos espaces verts, que vous soyez un particulier ou un professionnel. En tant que service à la personne déclaré, <b>vous ne payez que 50 % du montant</b> grâce à l’avance immédiate du crédit d’impôt, simple et sans paperasse. </p>
-            <br>
-            <h2> ENTRETIEN</h2>
-            <p>- Tonte de vos pelouses</p>
-            <p>- Taille de vos haies et arbustes</p>
-            <p>- Debroussaillage général</p>
-            <br>
-            <h2> NETTOYAGE - DEMOUSSAGE</h2>
-            <p>- Demoussage de vos allées (gravier, pavés ou dalles)</p>
-            <p>- Nettoyage haute pression de vos terrasses (bois, béton, pierre) et de vos escaliers/murets/fascades extérieurs </p>
-            <br>
-            <h2> EVACUATION</h2>
-            <p>- Évacuation de vos déchets verts à domicile pour un jardin propre sans contrainte (feuilles mortes, branches, tontes de pelouse, tailles de haies, mauvaises herbes, résidus de massifs, petits troncs ou souches légères) </p>
+  <div class="full-bg">
+    <div class="container">
+      <h1>Nos Prestations</h1>
+      <p>
+        ACENTRETIEN intervient pour l’entretien de vos espaces verts, que vous soyez un particulier ou un professionnel.
+        En tant que service à la personne déclaré, <span class="highlight-green">vous ne payez que 50 % du montant</span>
+        grâce à l’avance immédiate du crédit d’impôt, simple et sans paperasse.
+      </p>
+      <br>
+
+      <div class="prestation-block">
+        <div class="text-part">
+          <h2>ENTRETIEN</h2>
+          <p>- Tonte de vos pelouses</p>
+          <p>- Taille de vos haies et arbustes</p>
+          <p>- Debroussaillage général</p>
         </div>
+        <img src="images/entretien.png" alt="Entretien" class="prestation-image">
+      </div>
+
+      <div class="prestation-block">
+        <div class="text-part">
+          <h2>NETTOYAGE - DEMOUSSAGE</h2>
+          <p>- Demoussage de vos allées (gravier, pavés ou dalles)</p>
+          <p>- Nettoyage haute pression de vos terrasses (bois, béton, pierre) et de vos escaliers/murets/facades extérieurs </p>
+        </div>
+        <img src="images/nettoyage.png" alt="Nettoyage" class="prestation-image">
+      </div>
+
+      <div class="prestation-block">
+        <div class="text-part">
+          <h2>EVACUATION</h2>
+          <p>- Évacuation de vos déchets verts à domicile pour un jardin propre sans contrainte (feuilles mortes, branches, tontes de pelouse, tailles de haies, mauvaises herbes, résidus de massifs, petits troncs ou souches légères)</p>
+        </div>
+        <img src="images/evacuation.png" alt="Évacuation" class="prestation-image">
+      </div>
+      
     </div>
   </div>
+</div>
+
 
   <div class="slide-content" id="slide-contact">
     <div class="full-bg">
       <div class="container">
         <h1>Contact</h1>
-        <p>Pour toute demande, contactez-nous : [...]</p>
+        <h3 style="margin-top: 20px;">📞 Téléphone</h3>
+<p><span class="highlight-green">06 65 95 43 33</span></p>
+<h3 style="margin-top: 20px;">📧 E-mail</h3>
+<p><span class="highlight-green">contact@ac-entretien.fr</span></p>
       </div>
     </div>
   </div>
+
+<div class="slide-content" id="slide-moncompte">
+  <div class="full-bg">
+    <div class="container">
+      <div style="display: flex; justify-content: space-between; align-items: center;">
+  <h1>Mon Compte</h1>
+  <button class="logout-btn" onclick="logout()">Se déconnecter</button>
+</div>
+    <p>Bienvenue sur votre espace personnel <b><span class="user-firstname"></b></span>.
+    <br>
+    <br>
+    <h2>MES INFORMATIONS</h2>
+    <p class="user-info"></p>
+    </div>
+  </div>
+</div>
+
+
 </div>
 
     <br>
@@ -85,7 +121,7 @@
                 <input type="password" name="password" id="login-password" required>
 
                 <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 20px;">
-    <span style="color: #191919; cursor: pointer;" onclick="switchToRegister()">Pas encore inscrit?</span>
+    <span style="color: #191919; cursor: pointer;" onclick="switchToRegister()"><b><h3>Pas encore inscrit?</h3></b></span></span></span>
     <button type="submit" class="header-btn">Se connecter</button>
 </div>
             </form>
@@ -95,37 +131,65 @@
 
     <!-- MODALE INSCRIPTION -->
     <div class="modal-overlay" id="modal-register">
-        <div class="modal-content">
-            <span class="close-btn" onclick="closeModal('modal-register')">&times;</span>
-            <h2>Inscription</h2>
-            <form id="register-form">
-                <div style="display: flex; gap: 10px;">
-                    <div style="flex: 1;">
-                        <label for="firstname">Prénom</label>
-                        <input type="text" name="firstname" id="firstname" required>
-                    </div>
-                    <div style="flex: 1;">
-                        <label for="lastname">Nom</label>
-                        <input type="text" name="lastname" id="lastname" required>
-                    </div>
+    <div class="modal-content">
+        <span class="close-btn" onclick="closeModal('modal-register')">&times;</span>
+        <h2>Inscription</h2>
+        <form id="register-form">
+            <div style="display: flex; gap: 10px;">
+                <div style="flex: 1;">
+                    <label for="firstname">Prénom</label>
+                    <input type="text" name="firstname" id="firstname" required>
                 </div>
+                <div style="flex: 1;">
+                    <label for="lastname">Nom</label>
+                    <input type="text" name="lastname" id="lastname" required>
+                </div>
+            </div>
 
-                <label for="email">E-mail</label>
-                <input type="email" name="email" id="email" required>
+            <label for="email">E-mail</label>
+            <input type="email" name="email" id="email" required>
 
-                <label for="password">Mot de passe</label>
+            <label for="password">Mot de passe</label>
+            <div style="position: relative;">
                 <input type="password" name="password" id="password" required>
+                <img src="images/oeil.png" onclick="togglePassword('password')" style="position:absolute; right:10px; top:50%; transform:translateY(-50%); width:20px; height:20px; cursor:pointer;">
+            </div>
 
-                <label for="confirmPassword">Confirmer le mot de passe</label>
+            <label for="confirmPassword">Confirmer le mot de passe</label>
+            <div style="position: relative;">
                 <input type="password" name="confirmPassword" id="confirmPassword" required>
+                <img src="images/oeil.png" onclick="togglePassword('confirmPassword')" style="position:absolute; right:10px; top:50%; transform:translateY(-50%); width:20px; height:20px; cursor:pointer;">
+            </div>
 
-                <div style="text-align: right;">
-                    <button type="submit" class="header-btn">Valider</button>
-                </div>
-            </form>
-            <div id="register-errors" style="color: red; margin-top: 10px;"></div>
-        </div>
+            <label for="street">Rue</label>
+<input type="text" name="street" id="street" required> <!-- ✅ OK -->
+
+<div style="display: flex; gap: 10px;">
+    <div style="flex: 1;">
+        <label for="number">N°</label>
+        <input type="text" name="number" id="number" inputmode="numeric" pattern="\d*" required> <!-- ✅ OK -->
     </div>
+    <div style="flex: 2;">
+        <label for="zipcode">Code postal</label>
+        <input type="text" name="zipcode" id="zipcode" required> <!-- ✅ OK -->
+    </div>
+</div>
+
+<label for="city">Commune</label>
+<select name="city" id="city" required class="styled-select"> <!-- ✅ OK -->
+    <option value="">...</option>
+</select>
+
+
+            <div style="text-align: right;">
+                <button type="submit" class="header-btn">Valider</button>
+            </div>
+        </form>
+        <div id="register-errors" style="color: red; margin-top: 10px;"></div>
+    </div>
+</div>
+
+
     <script src="javascript.js"></script>
 </body>
 </html>
