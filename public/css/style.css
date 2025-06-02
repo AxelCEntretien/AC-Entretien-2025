@@ -338,7 +338,7 @@ label {
 
   .prestation-image {
     max-width: 100%;
-    max-height: 180px; /* ✅ limite la hauteur sur mobile */
+    max-height: 210px; /* ✅ limite la hauteur sur mobile */
     margin-top: 10px;
     object-fit: cover;
     border-radius: 8px;
