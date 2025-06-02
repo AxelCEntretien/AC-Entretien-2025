@@ -337,8 +337,11 @@ label {
   }
 
   .prestation-image {
-    max-width: 50%;
+    max-width: 100%;
+    max-height: 150px; /* ✅ limite la hauteur sur mobile */
     margin-top: 10px;
+    object-fit: cover;
+    border-radius: 8px;
   }
 }
 
