@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>AC Entretien</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz@10..48&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/png" href="images/ACELogo.png">
+</head>
+<body>
+    
+    <div class="container">
+        <!-- En-tête -->
+       <div class="header-bar" style="display: flex; justify-content: center; align-items: center; padding: 20px 30px;">
+    <img src="images/ACELogo.png" alt="Logo ACENTRETIEN" class="logo">
+</div>
+
+
+        <!-- ONGLET MENU -->
+
+        <!-- Onglets navigation -->
+<div class="tab-bar">
+    <div class="tab active" onclick="switchTab(this, 'prestations')">Prestations</div>
+    <div class="tab" onclick="switchTab(this, 'contact')">Contact</div>
+   <div class="tab" id="connexion-button" onclick="openModal('modal-login')">Connexion</div>
+
+
+
+
+    <div class="tab-indicator"></div>
+</div>
+
+      <!-- Contenu principal -->
+<div class="slide-container">
+  <div class="slide-content active" id="slide-prestations">
+  <div class="full-bg">
+    <div class="container">
+      <h1>Nos Prestations</h1>
+      <p>Nous intervenons pour l’entretien de vos espaces verts, que vous soyez un particulier ou un professionnel. En tant que service à la personne déclaré, <span class="highlight-green">vous ne payez que 50 % du montant</span> grâce à l’avance immédiate du crédit d’impôt, simple et sans paperasse.</p>
+      <br>
+
+      <h2>ENTRETIEN</h2>
+      <p>- Tonte de pelouse</p>
+      <p>- Taille de haies et arbuste</p>
+      <p>- Débroussaillage général</p>
+     
+
+      <br>
+
+      <h2>NETTOYAGE - DEMOUSSAGE</h2>
+      <p>- Démoussage d'allées (gravier, pavés ou dalles)</p>
+      <p>- Nettoyage haute pression de terrasse (bois, béton, pierre) et des escaliers/murets/façades extérieurs</p>
+      
+
+      <br>
+
+      <h2>EVACUATION</h2>
+      <p>- Évacuation des déchets verts à domicile pour un jardin propre sans contrainte (feuilles mortes, branches, tontes de pelouse, tailles de haies, mauvaises herbes, résidus de massifs, petits troncs ou souches légères)</p>
+      
+    </div>
+  </div>
+</div>
+
+
+  <div class="slide-content" id="slide-contact">
+    <div class="full-bg">
+      <div class="container">
+        <h1>Contact</h1>
+        <h3 style="margin-top: 20px;">📞 Téléphone</h3>
+<p><span class="highlight-green">06 65 95 43 33</span></p>
+<h3 style="margin-top: 20px;">📧 E-mail</h3>
+<p><span class="highlight-green">contact@ac-entretien.fr</span></p>
+      
+<br>
+
+<h1>Demande de prestation</h1>
+<p>Réponse sous 12h maximum</p>
+<form id="contact-form" enctype="multipart/form-data">
+  <div style="display: flex; gap: 10px;">
+    <input type="text" id="form-firstname" name="firstname" placeholder="Prénom" required style="flex: 1; background: transparent; color: white; border-bottom: 2px solid white;">
+    <input type="text" id="form-lastname" name="lastname" placeholder="Nom" required style="flex: 1; background: transparent; color: white; border-bottom: 2px solid white;">
+  </div>
+
+  <input type="email" id="form-email" name="email" placeholder="Adresse e-mail" required style="background: transparent; color: white; border-bottom: 2px solid white;">
+
+  <input type="text" id="form-street" name="street" placeholder="Rue" required style="background: transparent; color: white; border-bottom: 2px solid white;">
+  
+  <div style="display: flex; gap: 10px;">
+    <input type="text" id="form-number" name="number" placeholder="N°" required style="flex: 1; background: transparent; color: white; border-bottom: 2px solid white;">
+    <input type="text" id="form-zipcode" name="zipcode" placeholder="Code postal" required style="flex: 1; background: transparent; color: white; border-bottom: 2px solid white;">
+    <input type="text" id="form-city" name="city" placeholder="Ville" required style="flex: 2; background: transparent; color: white; border-bottom: 2px solid white;">
+  </div>
+
+  <textarea id="form-message" name="message" placeholder="Expliquez-nous votre besoin..." required
+  style="width: 100%; background: transparent; color: white; border: 2px solid white; padding: 15px; margin-top: 20px; margin-bottom: 20px; box-sizing: border-box; font-family: inherit; font-size: 1rem; min-height: 120px;">
+</textarea>
+  <br><br>
+  <div style="text-align: right;">
+  <button type="submit" class="header-btn">Envoyer la demande</button>
+  <div id="form-feedback" style="margin-top: 10px; color: green;"></div></div>
+</form>
+</div>
+
+    </div>
+    <div class="price-stamp">
+  <div class="price-circle">
+    <div class="price-big">30€</div>
+    <div class="price-small">/h</div>
+  </div>
+</div>
+
+  </div>
+
+<div class="slide-content" id="slide-moncompte">
+  <div class="full-bg">
+    <div class="container">
+      <div style="display: flex; justify-content: space-between; align-items: center;">
+  <h1>Mon Compte</h1>
+  <button class="logout-btn" onclick="logout()">Se déconnecter</button>
+</div>
+    <p>Bienvenue sur votre espace personnel <b><span class="user-firstname"></b></span>.
+    <br>
+    <br>
+    <h2>MES INFORMATIONS</h2>
+    <p class="user-info"></p>
+    <br>
+    <h2>PROGRAMME FIDÉLITÉ</h2>
+    <p>A venir...</p>
+    </div>
+  </div>
+</div>
+
+
+</div>
+
+    <br>
+     <center>© AC Entretien - 2025</center>
+    
+    <!-- MODALE CONNEXION -->
+<div class="modal-overlay" id="modal-login">
+  <div class="modal-content">
+    <span class="close-btn" onclick="closeModal('modal-login')">&times;</span>
+    <h2>Connexion</h2>
+    <form id="login-form">
+      <label for="login-email">E-mail</label>
+      <input type="email" name="email" id="login-email" autocomplete="off" disabled required>
+
+      <label for="login-password">Mot de passe</label>
+      <input type="password" name="password" id="login-password" autocomplete="off" disabled required>
+
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 20px;">
+        <span style="color: #191919; cursor: pointer;" onclick="switchToRegister()"><b><h3>Pas encore inscrit?</h3></b></span>
+        <button type="submit" class="header-btn">Se connecter</button>
+      </div>
+    </form>
+    <div id="login-errors" style="color: red; margin-top: 10px;"></div>
+  </div>
+</div>
+
+
+
+
+    <!-- MODALE INSCRIPTION -->
+    <div class="modal-overlay" id="modal-register">
+    <div class="modal-content">
+        <span class="close-btn" onclick="closeModal('modal-register')">&times;</span>
+        <h2>Inscription</h2>
+        <form id="register-form">
+            <div style="display: flex; gap: 10px;">
+                <div style="flex: 1;">
+                    <label for="firstname">Prénom</label>
+                    <input type="text" name="firstname" id="firstname" required>
+                </div>
+                <div style="flex: 1;">
+                    <label for="lastname">Nom</label>
+                    <input type="text" name="lastname" id="lastname" required>
+                </div>
+            </div>
+
+            <label for="email">E-mail</label>
+            <input type="email" name="email" id="email" required>
+
+            <label for="password">Mot de passe</label>
+            <div style="position: relative;">
+                <input type="password" name="password" id="password" required>
+                <img src="images/oeil.png" onclick="togglePassword('password')" style="position:absolute; right:10px; top:50%; transform:translateY(-50%); width:20px; height:20px; cursor:pointer;">
+            </div>
+
+            <label for="confirmPassword">Confirmer le mot de passe</label>
+            <div style="position: relative;">
+                <input type="password" name="confirmPassword" id="confirmPassword" required>
+                <img src="images/oeil.png" onclick="togglePassword('confirmPassword')" style="position:absolute; right:10px; top:50%; transform:translateY(-50%); width:20px; height:20px; cursor:pointer;">
+            </div>
+
+            <label for="street">Rue</label>
+<input type="text" name="street" id="street" required> <!-- ✅ OK -->
+
+<div style="display: flex; gap: 10px;">
+    <div style="flex: 1;">
+        <label for="number">N°</label>
+        <input type="text" name="number" id="number" inputmode="numeric" pattern="\d*" required> <!-- ✅ OK -->
+    </div>
+    <div style="flex: 2;">
+        <label for="zipcode">Code postal</label>
+        <input type="text" name="zipcode" id="zipcode" required> <!-- ✅ OK -->
+    </div>
+</div>
+
+<label for="city">Commune</label>
+<select name="city" id="city" required class="styled-select"> <!-- ✅ OK -->
+    <option value="">...</option>
+</select>
+
+
+            <div style="text-align: right;">
+                <button type="submit" class="header-btn">Valider</button>
+            </div>
+        </form>
+        <div id="register-errors" style="color: red; margin-top: 10px;"></div>
+    </div>
+</div>
+
+
+    <script src="javascript.js"></script>
+</body>
+</html>
