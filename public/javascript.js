@@ -160,6 +160,24 @@ window.addEventListener('DOMContentLoaded', async () => {
             userInfoContainer.innerHTML = infos;
         }
 
+        // ✅ Préremplir les champs du formulaire de contact
+        const formFields = {
+            firstname: document.getElementById('form-firstname'),
+            lastname: document.getElementById('form-lastname'),
+            email: document.getElementById('form-email'),
+            street: document.getElementById('form-street'),
+            number: document.getElementById('form-number'),
+            zipcode: document.getElementById('form-zipcode'),
+            city: document.getElementById('form-city')
+        };
+
+        if (formFields.firstname) formFields.firstname.value = data.firstname || '';
+        if (formFields.lastname) formFields.lastname.value = data.lastname || '';
+        if (formFields.email) formFields.email.value = data.email || '';
+        if (formFields.street) formFields.street.value = data.street || '';
+        if (formFields.number) formFields.number.value = data.number || '';
+        if (formFields.zipcode) formFields.zipcode.value = data.zipcode || '';
+        if (formFields.city) formFields.city.value = data.city || '';
     } else {
         const connexionBtn = document.getElementById('connexion-button');
         connexionBtn.textContent = 'Connexion';
@@ -301,4 +319,43 @@ function openModal(id) {
 function closeModal(id) {
   document.getElementById(id).classList.remove('show');
 }
+
+document.getElementById('contact-form').addEventListener('submit', async function(e) {
+  e.preventDefault();
+
+  const data = {
+    firstname: document.getElementById('form-firstname').value.trim(),
+    lastname: document.getElementById('form-lastname').value.trim(),
+    email: document.getElementById('form-email').value.trim(),
+    street: document.getElementById('form-street').value.trim(),
+    number: document.getElementById('form-number').value.trim(),
+    zipcode: document.getElementById('form-zipcode').value.trim(),
+    city: document.getElementById('form-city').value.trim(),
+    message: document.getElementById('form-message').value.trim()
+  };
+
+  const feedback = document.getElementById('form-feedback');
+  feedback.textContent = '';
+
+  try {
+    const res = await fetch('/contact', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data)
+    });
+
+    const msg = await res.text();
+    if (res.ok) {
+      feedback.style.color = 'lightgreen';
+      feedback.textContent = '✅ Votre message a bien été envoyé.';
+      this.reset(); // vide le formulaire
+    } else {
+      feedback.style.color = 'red';
+      feedback.textContent = `❌ ${msg}`;
+    }
+  } catch (err) {
+    feedback.style.color = 'red';
+    feedback.textContent = "❌ Une erreur est survenue.";
+  }
+});
 
