@@ -155,7 +155,7 @@ input[type="password"] {
 }
 
 input:focus {
-    border-bottom: 2px solid #3cae3c;
+    border-bottom: 2px solid #317941;
 }
 
 label {
@@ -200,7 +200,7 @@ label {
     position: absolute;
     bottom: 0;
     height: 4px;
-    background-color: #3cae3c;
+    background-color: #317941;
     border-radius: 2px;
     transition: all 0.3s ease;
 }
@@ -227,7 +227,7 @@ label {
 }
 
 .clickable-text:hover {
-    color: #3cae3c;
+    color: #317941;
 }
 .slide-container {
   position: relative;
@@ -265,7 +265,7 @@ label {
 }
 
 .highlight-green {
-  background-color: #3cae3c;
+  background-color: #317941;
   color: white;
   padding: 2px 4px;
   border-radius: 4px;
@@ -306,7 +306,7 @@ label {
 }
 
 .styled-select:focus {
-    border-bottom: 2px solid #3cae3c;
+    border-bottom: 2px solid #317941;
 }
 .prestation-image {
   width: 100%;
@@ -315,6 +315,37 @@ label {
   margin: 15px 0 30px;
   border-radius: 10px;
   display: block;
+}
+.price-stamp {
+  position: absolute;
+  top: 40px;
+  right: 30px;
+  transform: rotate(-15deg);
+  z-index: 10;
+}
+
+.price-circle {
+  width: 90px;
+  height: 90px;
+  background-color: #317941;
+  border-radius: 50%;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  font-family: 'Bricolage Grotesque', sans-serif;
+}
+
+.price-big {
+  font-size: 1.6rem;
+  font-weight: bold;
+  margin-bottom: -6px;
+}
+
+.price-small {
+  font-size: 0.8rem;
 }
 
 
