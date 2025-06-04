@@ -369,4 +369,25 @@ document.getElementById('contact-form').addEventListener('submit', async functio
     feedback.textContent = "❌ Une erreur est survenue.";
   }
 });
+function animateLogoRandomly() {
+    const logo = document.querySelector('.logo');
+    if (!logo) return;
+
+    const delay = Math.random() * (8000 - 2000) + 2000; // entre 2s et 8s
+
+    setTimeout(() => {
+        logo.classList.add('animate');
+
+        // Enlève la classe après l'animation (évite accumulation)
+        setTimeout(() => {
+            logo.classList.remove('animate');
+            animateLogoRandomly(); // relance récursivement
+        }, 700); // durée animation + marge
+    }, delay);
+}
+
+// Démarre l'animation quand la page est chargée
+window.addEventListener('DOMContentLoaded', () => {
+    animateLogoRandomly();
+});
 
