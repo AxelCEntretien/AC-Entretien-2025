@@ -85,6 +85,7 @@ app.post('/login', async (req, res) => {
         req.session.user = {
             _id: user._id,
             firstname: user.firstname,
+            lastname: user.lastname,
             email: user.email,
             street: user.street,
             number: user.number,
@@ -107,6 +108,7 @@ app.get('/check-auth', (req, res) => {
         res.json({
             connected: true,
             firstname: user.firstname,
+            lastname: user.lastname,
             email: user.email,
             street: user.street,
             number: user.number,
@@ -131,6 +133,45 @@ app.get('/logout', (req, res) => {
 
 app.listen(port, () => {
   console.log(`Serveur ACENTRETIEN en ligne sur http://localhost:${port}`);
+});
+
+const nodemailer = require('nodemailer');
+
+app.post('/contact', async (req, res) => {
+  const { firstname, lastname, email, street, number, zipcode, city, message } = req.body;
+
+  try {
+    // 🔐 Configuration de ton compte mail OVH
+    const transporter = nodemailer.createTransport({
+      host: 'ssl0.ovh.net', // ou smtp.<ton-domaine>.fr
+      port: 465,
+      secure: true,
+      auth: {
+        user: 'contact@ac-entretien.fr',   // à remplacer
+        pass: 'Modestie3544470!'           // à remplacer
+      }
+    });
+
+    const mailOptions = {
+      from: `"${firstname} ${lastname}" <${email}>`,
+      to: 'contact@ac-entretien.fr',  // vers toi-même
+      subject: 'Nouvelle demande de prestation AC Entretien',
+      html: `
+        <h2>Nouvelle demande reçue :</h2>
+        <p><b>Nom :</b> ${lastname}</p>
+        <p><b>Prénom :</b> ${firstname}</p>
+        <p><b>Email :</b> ${email}</p>
+        <p><b>Adresse :</b> ${number} ${street}, ${zipcode} ${city}</p>
+        <p><b>Message :</b><br>${message.replace(/\n/g, '<br>')}</p>
+      `
+    };
+
+    await transporter.sendMail(mailOptions);
+    res.status(200).send('Message envoyé avec succès.');
+  } catch (err) {
+    console.error('Erreur envoi e-mail :', err);
+    res.status(500).send('Erreur lors de l’envoi. Veuillez réessayer plus tard.');
+  }
 });
 
 
