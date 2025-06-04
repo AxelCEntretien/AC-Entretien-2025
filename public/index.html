@@ -2,11 +2,11 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <title>ACENTRETIEN</title>
+    <title>AC Entretien</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/style.css">
     <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz@10..48&display=swap" rel="stylesheet">
-
+    <link rel="icon" type="image/png" href="images/ACELogo.png">
 </head>
 <body>
     
@@ -37,27 +37,27 @@
   <div class="full-bg">
     <div class="container">
       <h1>Nos Prestations</h1>
-      <p>ACENTRETIEN intervient pour l’entretien de vos espaces verts, que vous soyez un particulier ou un professionnel. En tant que service à la personne déclaré, <span class="highlight-green">vous ne payez que 50 % du montant</span> grâce à l’avance immédiate du crédit d’impôt, simple et sans paperasse.</p>
+      <p>Nous intervenons pour l’entretien de vos espaces verts, que vous soyez un particulier ou un professionnel. En tant que service à la personne déclaré, <span class="highlight-green">vous ne payez que 50 % du montant</span> grâce à l’avance immédiate du crédit d’impôt, simple et sans paperasse.</p>
       <br>
 
       <h2>ENTRETIEN</h2>
-      <p>- Tonte de vos pelouses</p>
-      <p>- Taille de vos haies et arbustes</p>
+      <p>- Tonte de pelouse</p>
+      <p>- Taille de haies et arbuste</p>
       <p>- Débroussaillage général</p>
-      <img src="images/entretien.png" alt="Entretien" class="prestation-image">
+     
 
       <br>
 
       <h2>NETTOYAGE - DEMOUSSAGE</h2>
-      <p>- Démoussage de vos allées (gravier, pavés ou dalles)</p>
-      <p>- Nettoyage haute pression de vos terrasses (bois, béton, pierre) et de vos escaliers/murets/façades extérieurs</p>
-      <img src="images/nettoyage.png" alt="Nettoyage" class="prestation-image">
+      <p>- Démoussage d'allées (gravier, pavés ou dalles)</p>
+      <p>- Nettoyage haute pression de terrasse (bois, béton, pierre) et des escaliers/murets/façades extérieurs</p>
+      
 
       <br>
 
       <h2>EVACUATION</h2>
-      <p>- Évacuation de vos déchets verts à domicile pour un jardin propre sans contrainte (feuilles mortes, branches, tontes de pelouse, tailles de haies, mauvaises herbes, résidus de massifs, petits troncs ou souches légères)</p>
-      <img src="images/evacuation.png" alt="Évacuation" class="prestation-image">
+      <p>- Évacuation des déchets verts à domicile pour un jardin propre sans contrainte (feuilles mortes, branches, tontes de pelouse, tailles de haies, mauvaises herbes, résidus de massifs, petits troncs ou souches légères)</p>
+      
     </div>
   </div>
 </div>
@@ -71,8 +71,45 @@
 <p><span class="highlight-green">06 65 95 43 33</span></p>
 <h3 style="margin-top: 20px;">📧 E-mail</h3>
 <p><span class="highlight-green">contact@ac-entretien.fr</span></p>
-      </div>
+      
+<br>
+
+<h1>Demande de prestation</h1>
+<p>Réponse sous 12h maximum</p>
+<form id="contact-form" enctype="multipart/form-data">
+  <div style="display: flex; gap: 10px;">
+    <input type="text" id="form-firstname" name="firstname" placeholder="Prénom" required style="flex: 1; background: transparent; color: white; border-bottom: 2px solid white;">
+    <input type="text" id="form-lastname" name="lastname" placeholder="Nom" required style="flex: 1; background: transparent; color: white; border-bottom: 2px solid white;">
+  </div>
+
+  <input type="email" id="form-email" name="email" placeholder="Adresse e-mail" required style="background: transparent; color: white; border-bottom: 2px solid white;">
+
+  <input type="text" id="form-street" name="street" placeholder="Rue" required style="background: transparent; color: white; border-bottom: 2px solid white;">
+  
+  <div style="display: flex; gap: 10px;">
+    <input type="text" id="form-number" name="number" placeholder="N°" required style="flex: 1; background: transparent; color: white; border-bottom: 2px solid white;">
+    <input type="text" id="form-zipcode" name="zipcode" placeholder="Code postal" required style="flex: 1; background: transparent; color: white; border-bottom: 2px solid white;">
+    <input type="text" id="form-city" name="city" placeholder="Ville" required style="flex: 2; background: transparent; color: white; border-bottom: 2px solid white;">
+  </div>
+
+  <textarea id="form-message" name="message" placeholder="Expliquez-nous votre besoin..." required
+  style="width: 100%; background: transparent; color: white; border: 2px solid white; padding: 15px; margin-top: 20px; margin-bottom: 20px; box-sizing: border-box; font-family: inherit; font-size: 1rem; min-height: 120px;">
+</textarea>
+  <br><br>
+  <div style="text-align: right;">
+  <button type="submit" class="header-btn">Envoyer la demande</button>
+  <div id="form-feedback" style="margin-top: 10px; color: green;"></div></div>
+</form>
+</div>
+
     </div>
+    <div class="price-stamp">
+  <div class="price-circle">
+    <div class="price-big">30€</div>
+    <div class="price-small">/h</div>
+  </div>
+</div>
+
   </div>
 
 <div class="slide-content" id="slide-moncompte">
@@ -87,6 +124,9 @@
     <br>
     <h2>MES INFORMATIONS</h2>
     <p class="user-info"></p>
+    <br>
+    <h2>PROGRAMME FIDÉLITÉ</h2>
+    <p>A venir...</p>
     </div>
   </div>
 </div>
