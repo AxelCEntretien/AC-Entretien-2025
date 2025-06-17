@@ -22,10 +22,12 @@ body {
 .container {
     font-family: 'Bricolage Grotesque', sans-serif;
     width: 100%;
-    max-width: 600px;
-    padding: 60px 20px 40px;
+    max-width: 1200px; /* ✅ plus large sur desktop */
+    padding: 60px 40px;
+    margin: 0 auto;
     box-sizing: border-box;
 }
+
 
 /* === LOGO === */
 img.logo {
@@ -144,7 +146,6 @@ input[type="password"] {
     width: 100%;
     border: none;
     border-bottom: 2px solid #ccc;
-    border-radius: 0 !important;
     padding: 8px 4px;
     margin-top: 5px;
     margin-bottom: 20px;
@@ -363,27 +364,22 @@ label {
 /* === RESPONSIVE === */
 @media (max-width: 768px) {
     .tab {
-        font-size: 1.0rem;      /* 👈 taille plus petite sur mobile */
-    }
-}
-@media (max-width: 768px) {
-    .container {
-        width: 95%;
-        padding: 30px 15px;
+        font-size: 1.0rem;
     }
 
-    img.logo {
-        max-width: 150px;
-    }
-}
-
-@media (max-width: 480px) {
     .container {
-        width: 100%;
+        max-width: 100%;
         padding: 20px 10px;
     }
 
     img.logo {
         max-width: 120px;
     }
+}
+.modal-content::-webkit-scrollbar {
+  width: 6px;
+}
+.modal-content::-webkit-scrollbar-thumb {
+  background-color: #ccc;
+  border-radius: 3px;
 }
