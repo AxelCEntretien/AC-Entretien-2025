@@ -116,7 +116,7 @@ img.logo {
   transition: opacity 0.3s ease;
   z-index: 999;
   overflow: auto; /* ✅ permet à la modale de scroller si nécessaire */
-  padding: 40px 15px; /* ✅ espace pour que le contenu respire */
+   /* ✅ espace pour que le contenu respire */
 }
 
 .modal-overlay.show {
