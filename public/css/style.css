@@ -115,8 +115,8 @@ img.logo {
   pointer-events: none;
   transition: opacity 0.3s ease;
   z-index: 999;
-  overflow: auto; /* ✅ permet à la modale de scroller si nécessaire */
-   /* ✅ espace pour que le contenu respire */
+  overflow: auto; 
+  padding: 10px 15px;
 }
 
 .modal-overlay.show {
