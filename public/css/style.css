@@ -101,42 +101,43 @@ img.logo {
 
 /* === MODALES === */
 .modal-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    backdrop-filter: blur(5px);
-    background-color: rgba(0, 0, 0, 0.3);
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.3s ease;
-    z-index: 999;
-    padding-top: 40px;
-    /* ❌ pas de padding général ici */
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  backdrop-filter: blur(5px);
+  background-color: rgba(0, 0, 0, 0.3);
+  display: flex;
+  justify-content: center;
+  align-items: center; /* centrage vertical */
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+  z-index: 999;
+  overflow: auto; /* ✅ permet à la modale de scroller si nécessaire */
+  padding: 40px 15px; /* ✅ espace pour que le contenu respire */
 }
 
-
 .modal-overlay.show {
-    opacity: 1;
-    pointer-events: all;
+  opacity: 1;
+  pointer-events: all;
 }
 
 .modal-content {
-    background: #fff;
-    padding: 40px 30px;
-    border-radius: 10px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-    max-width: 400px;
-    width: 90%;
-    position: relative;
-    font-family: 'Bricolage Grotesque', sans-serif;
+  background: #fff;
+  padding: 40px 30px;
+  border-radius: 10px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  max-width: 400px;
+  width: 100%;
+  font-family: 'Bricolage Grotesque', sans-serif;
 
-    margin: 0 10px; /* ✅ espace gauche/droite */
+  max-height: 90vh;           /* ✅ limite la hauteur de la modale */
+  overflow-y: auto;           /* ✅ active scroll si besoin */
+  box-sizing: border-box;
 }
+
 
 
 /* === FORMULAIRES === */
@@ -376,10 +377,4 @@ label {
         max-width: 120px;
     }
 }
-.modal-content::-webkit-scrollbar {
-  width: 6px;
-}
-.modal-content::-webkit-scrollbar-thumb {
-  background-color: #ccc;
-  border-radius: 3px;
-}
+
