@@ -116,7 +116,7 @@ img.logo {
   transition: opacity 0.3s ease;
   z-index: 999;
   overflow: auto; 
-  padding: 0px 15px;
+  padding: 0px 1px;
 }
 
 .modal-overlay.show {
