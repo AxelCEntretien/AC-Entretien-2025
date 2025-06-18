@@ -379,10 +379,15 @@ label {
         max-width: 120px;
     }
 }
-.modal-content::-webkit-scrollbar {
-  width: 6px;
+@media (max-width: 768px) {
+  .modal-content {
+    margin-top: 60px; /* ✅ espace en haut pour éviter que ça touche le bord */
+    margin-bottom: 40px; /* (optionnel) espace en bas aussi */
+  }
+
+  .modal-overlay {
+    align-items: flex-start; /* ✅ pour aligner le popup en haut */
+    overflow-y: auto;        /* ✅ scroll uniquement vertical si nécessaire */
+  }
 }
-.modal-content::-webkit-scrollbar-thumb {
-  background-color: #ccc;
-  border-radius: 3px;
-}
+
